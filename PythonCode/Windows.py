@@ -4,6 +4,7 @@ import cv2
 import numpy as np
 import pygame
 import time
+from PythonCode.send_email import *
 
 #if you get error while importing the google how to install <Package Name> in python 3.6
 
@@ -51,6 +52,8 @@ while (True):
     print ("Detecting " + str(len(cnts)) + " Moving Objects")
     if len(cnts) > 0:
         cameraSound.play()
+        credential_setup(True)
+
 
     for c in cnts:
         if cv2.contourArea(c) < 1500:
