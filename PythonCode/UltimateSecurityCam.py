@@ -1,12 +1,31 @@
-﻿# coding=utf-8
+# coding=utf-8
 
 import cv2
 import numpy as np
 import pygame
 import json
 import time, sys, os
+import pyaudio
+import wave
+import threading
 
+ 
 #if you get error while importing the google how to install <Package Name> in python 3.6
+
+FORMAT = pyaudio.paInt16
+CHANNELS = 2
+RATE = 44100
+CHUNK = 1024
+#RECORD_SECONDS = 5
+WAVE_OUTPUT_FILENAME = "file.wav"
+ 
+audio = pyaudio.PyAudio()
+
+stream = audio.open(format=FORMAT, channels=CHANNELS,
+		rate=RATE, input=True,
+		frames_per_buffer=CHUNK)
+frames = []
+
 
 #initial values set
 THRESHOLD = 40
@@ -62,11 +81,16 @@ class UltimateSecurityCam:
 				#print(str(final-initial) + "...")
 
 	def usc(self):
+
 		#main window opens and opject movement detection starts
 		maxcnts = 0		
 		global background
 		start = time.time()	
 		while (True):
+			
+			print ("recording...")
+			self.stream_audio(frames)
+						
 			ret, frame = camera.read()
 			
 			# The first frame as the background
@@ -78,6 +102,7 @@ class UltimateSecurityCam:
 			gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 			gray_frame = cv2.GaussianBlur(gray_frame, (21,21), 0)
 
+			self.stream_audio(frames)
 							
 			# Compare the difference between each frame of image and the background
 			#print(background.shape, gray_frame.shape)
@@ -95,6 +120,7 @@ class UltimateSecurityCam:
 			#b,g,r = cv2.split(frame)
 			#pixels = frame.shape[0]*frame.shape[1]
 			#print(sum(sum(b+g+r))/(3*pixels))
+			self.stream_audio(frames)
 			
 			#finds the level of darkness value ranging from 0 to 255
 			darkness_level = np.mean(gray_frame)
@@ -110,6 +136,8 @@ class UltimateSecurityCam:
 				detection_text_colour = (0,0,255)   #set to red
 				cameraSound.play()
 
+			self.stream_audio(frames)
+			
 			for c in cnts:
 				if cv2.contourArea(c) < (background.shape[0]*background.shape[1])/204:
 					#minimum area to be calculated based on image size and camera megapixels
@@ -131,14 +159,18 @@ class UltimateSecurityCam:
 
 			cv2.imshow("Ultimate Security Camera", merged_windows)
 
+			
 			#cv2.imshow("contours", frame)
 			videoWriter.write(frame)
 			#cv2.imshow("dif", diff)
 			#cv2.imwrite('didff.jpg', diff)
 
+			self.stream_audio(frames)
+
 			keypress = cv2.waitKey(25)
 			if keypress:
 				if keypress &0xff == ord('q'):
+					self.save_audio(frames)
 					break
 				elif keypress &0xff == ord('r'):			
 					#reset the camera
@@ -159,6 +191,24 @@ class UltimateSecurityCam:
 			 "Duration": '%0.2f' %(duration) + ' seconds'}
 		return data
 
+	def stream_audio(self,frames):
+		data = stream.read(CHUNK)
+		frames.append(data)
+
+	def save_audio(self,frames):
+		print ("finished recording") 
+		# stop Recording
+		stream.stop_stream()
+		stream.close()
+		audio.terminate()
+
+		waveFile = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
+		waveFile.setnchannels(CHANNELS)
+		waveFile.setsampwidth(audio.get_sample_size(FORMAT))
+		waveFile.setframerate(RATE)
+		waveFile.writeframes(b''.join(frames))
+		waveFile.close()
+		
 	def config(self,data):
 		#saves all necessary configurations
 		
