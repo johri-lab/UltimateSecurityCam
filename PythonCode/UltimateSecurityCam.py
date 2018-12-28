@@ -68,24 +68,42 @@ class UltimateSecurityCam:
 		start = time.time()	
 		while (True):
 			ret, frame = camera.read()
+			
 			# The first frame as the background
 			if background is None:
 				background = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 				background = cv2.GaussianBlur(background, (21,21), 0)
 				continue
-
+			
 			gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 			gray_frame = cv2.GaussianBlur(gray_frame, (21,21), 0)
 
+							
 			# Compare the difference between each frame of image and the background
 			#print(background.shape, gray_frame.shape)
 			diff = cv2.absdiff(background, gray_frame)
 			diff = cv2.threshold(diff, THRESHOLD, 255, cv2.THRESH_BINARY)[1]
 			diff = cv2.dilate(diff, es, iterations=2)
+			
 			# Calculate the outline of the target in the image
 			image, cnts, hierarchy = cv2.findContours(diff.copy(),
 								  cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 			detection_text = ("Detecting " + str(len(cnts)) + " Moving Objects")
+			
+			
+			#identifying if lights are on or off
+			#b,g,r = cv2.split(frame)
+			#pixels = frame.shape[0]*frame.shape[1]
+			#print(sum(sum(b+g+r))/(3*pixels))
+			
+			#finds the level of darkness value ranging from 0 to 255
+			darkness_level = np.mean(gray_frame)
+			
+			#Level of darkness selected
+			if darkness_level < 50:
+				detection_text = detection_text + str('(Dark)')
+				
+				
 			detection_text_colour = (0,255,0) 	#set as green
 			if len(cnts) > 0:
 				#if breach detected
@@ -118,7 +136,7 @@ class UltimateSecurityCam:
 			#cv2.imshow("dif", diff)
 			#cv2.imwrite('didff.jpg', diff)
 
-			keypress = cv2.waitKey(45)
+			keypress = cv2.waitKey(25)
 			if keypress:
 				if keypress &0xff == ord('q'):
 					break
