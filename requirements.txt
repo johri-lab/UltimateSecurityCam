@@ -2,3 +2,5 @@ numpy
 pygame
 opencv
 opencv-contrib-python
+pyaudio
+wave
