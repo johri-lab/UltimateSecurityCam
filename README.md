@@ -1,5 +1,6 @@
 # UltimateSecurityCam
 ---
+
 #### An easy-to-build , un-hack-able security camera which is impossible to fool . "Beginner Friendly"
 
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
@@ -25,8 +26,8 @@
 - [Get in touch](#get-in-touch)
 
 
----
 
+---
 ## Introduction
 [(Back to top👆🏻)](#table-of-content)
 - This is a security camera software which detects any intruder and alerts the owner .
@@ -42,6 +43,7 @@
 We take a snapshot of the room , lets call this `base.jpg`. Now , the code continuously scan the current frame and subtract it from `base.jpg`.
 If the difference is more than a threshold , we'll consider a breach happening.
 
+
 ---
 ## Step by step guide
 [(Back to top👆🏻)](#table-of-content)
@@ -52,32 +54,43 @@ If the difference is more than a threshold , we'll consider a breach happening.
 	- The code first initializes a three seconds waiting camera window.
 	- The main code runs to detect movements and record the complete video footage.
 	- All the configurations of the video clip are recorded (like Date and Time, camera fps, maximum object movement recorded at a time, duration, etc.)
-	- The video clip and configuration data is saved for future reference and the code terminates.
+	- The video clip saved as `basic_motion_detection.avi`.
+	- The configuration data like camera fps, duration of running, maximum object recorded, video file location is saved in `config.txt` for future reference.
+	- Finally the code terminates.
 	
+
+---
 ## Setup instructions
 [(Back to top👆🏻)](#table-of-content)
 
 ## Initialisation :
 To install the required packages use the following command in command prompt[windows] OR terminal[Unix]
 ````sh
- pip3 install -r requirements.txt
+ sudo python3 setup.py install
 ````
+Packages can also be installed using pip-install [Tutorial](https://www.youtube.com/watch?v=237dNNQhD3Q).
 
+
+<<<<<<< HEAD
+=======
 ## Running instructions :
 ---
 ---
+>>>>>>> 10589444d8561272b0bc7a638c1051145c2247a7
 ## Working on the code:
 - Windows: Open up `UltimateSecurityCam.py` in your preferred python IDE [windows.py](PythonCode/Windows.py)
 - Linux: Open the terminal in the `PythonCode` directory, copy the code `python3 UltimateSecurityCam.py` and run it.
 - More formally , fork the code , and clone it your machine . I recommend that you use the GitH desktop app.
   - If you need a python IDE , I recommend using pycharm. [Tutorial to install !](https://www.youtube.com/watch?v=QzcaEELafkE).
-  - If you get an error , make sure all the **import statements are working** , if not , install using pip-install [Tutorial](https://www.youtube.com/watch?v=237dNNQhD3Q).
+  - If you get an error , make sure all the **import statements are working** (required packages are [installed](#setup-instructions)) 
+  
 
+---
 ## Running 
 [(Back to top👆🏻)](#table-of-content)
 
 ### UltimateSecurityCam running on Linux
-Command (with PythonCode as the working directory):
+Command (with `PythonCode` as the working directory):
 `python3 UltimateSecurityCam.py`
 
 ![ultimatesecuritycam](https://user-images.githubusercontent.com/30645315/49302849-31d16380-f4ee-11e8-9bfa-4e99866fa3bc.gif)
@@ -93,6 +106,7 @@ Command (with PythonCode as the working directory):
 
 Many improvements and developments are in the pipeline! To know more, contact on github or niteshx22@gmail.com
 
+---
 ## Get in touch
 [(Back to top👆🏻)](#table-of-content)
 
