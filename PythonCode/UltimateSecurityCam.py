@@ -18,39 +18,22 @@ RATE = 44100
 CHUNK = 1024
 #RECORD_SECONDS = 5
 WAVE_OUTPUT_FILENAME = "file.wav"
- 
+
 audio = pyaudio.PyAudio()
 
-stream = audio.open(format=FORMAT, channels=CHANNELS,
-		rate=RATE, input=True,
-		frames_per_buffer=CHUNK)
-frames = []
-
-
-#initial values set
-THRESHOLD = 40
 camera = cv2.VideoCapture(0)
 
-es = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (9,4))
-kernel = np.ones((5,5), np.uint8)
-background = None
+size = (int(camera.get(cv2.CAP_PROP_FRAME_WIDTH)),
+				int(camera.get(cv2.CAP_PROP_FRAME_HEIGHT)))
+
 
 # Write test video
 fps = 2 #camera.get(cv2.CAP_PROP_FPS)
 pygame.mixer.init()
-cameraSound = pygame.mixer.Sound("snapshotsound.ogg")
-size = (int(camera.get(cv2.CAP_PROP_FRAME_WIDTH)),
-		int(camera.get(cv2.CAP_PROP_FRAME_HEIGHT)))
-
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 #video file name
 videofile = "basic_motion_detection.avi"
-
-videoWriter = cv2.VideoWriter(os.path.join(str(dir_path),videofile),
-				  cv2.VideoWriter_fourcc('D', 'I', 'V', 'X'),
-				  fps, size)
-
 
 class UltimateSecurityCam:
 	"""	UltimateSecurityCam class identifies object movements and 
@@ -59,8 +42,27 @@ class UltimateSecurityCam:
 	"""
 
 	def __init__(self):
-		pass
 
+		self.stream = audio.open(format=FORMAT, channels=CHANNELS,
+				rate=RATE, input=True,
+				frames_per_buffer=CHUNK)
+		self.frames = []
+
+
+		#initial values set
+		self.THRESHOLD = 40
+
+		self.es = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (9,4))
+		#self.kernel = np.ones((5,5), np.uint8)
+		self.background = None
+
+		self.cameraSound = pygame.mixer.Sound("snapshotsound.ogg")
+		
+		self.videoWriter = cv2.VideoWriter(os.path.join(str(dir_path),videofile),
+						  cv2.VideoWriter_fourcc('D', 'I', 'V', 'X'),
+						  fps, size)
+
+		
 	def initial_window(self):
 		#initial window starts 
 		initial = int(time.time())
@@ -81,34 +83,34 @@ class UltimateSecurityCam:
 				#print(str(final-initial) + "...")
 
 	def usc(self):
-
 		#main window opens and opject movement detection starts
 		maxcnts = 0		
-		global background
+		#global background
 		start = time.time()	
+		
 		while (True):
 			
 			print ("recording...")
-			self.stream_audio(frames)
 						
 			ret, frame = camera.read()
-			
+			self.stream_audio(self.frames)
+
 			# The first frame as the background
-			if background is None:
-				background = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-				background = cv2.GaussianBlur(background, (21,21), 0)
+			if self.background is None:
+				self.background = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+				self.background = cv2.GaussianBlur(self.background, (21,21), 0)
 				continue
 			
 			gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 			gray_frame = cv2.GaussianBlur(gray_frame, (21,21), 0)
 
-			self.stream_audio(frames)
+			self.stream_audio(self.frames)
 							
 			# Compare the difference between each frame of image and the background
 			#print(background.shape, gray_frame.shape)
-			diff = cv2.absdiff(background, gray_frame)
-			diff = cv2.threshold(diff, THRESHOLD, 255, cv2.THRESH_BINARY)[1]
-			diff = cv2.dilate(diff, es, iterations=2)
+			diff = cv2.absdiff(self.background, gray_frame)
+			diff = cv2.threshold(diff, self.THRESHOLD, 255, cv2.THRESH_BINARY)[1]
+			diff = cv2.dilate(diff, self.es, iterations=2)
 			
 			# Calculate the outline of the target in the image
 			image, cnts, hierarchy = cv2.findContours(diff.copy(),
@@ -120,7 +122,7 @@ class UltimateSecurityCam:
 			#b,g,r = cv2.split(frame)
 			#pixels = frame.shape[0]*frame.shape[1]
 			#print(sum(sum(b+g+r))/(3*pixels))
-			self.stream_audio(frames)
+			self.stream_audio(self.frames)
 			
 			#finds the level of darkness value ranging from 0 to 255
 			darkness_level = np.mean(gray_frame)
@@ -134,12 +136,12 @@ class UltimateSecurityCam:
 			if len(cnts) > 0:
 				#if breach detected
 				detection_text_colour = (0,0,255)   #set to red
-				cameraSound.play()
+				self.cameraSound.play()
 
-			self.stream_audio(frames)
+			self.stream_audio(self.frames)
 			
 			for c in cnts:
-				if cv2.contourArea(c) < (background.shape[0]*background.shape[1])/204:
+				if cv2.contourArea(c) < (self.background.shape[0]*self.background.shape[1])/204:
 					#minimum area to be calculated based on image size and camera megapixels
 					continue
 				# Calculate the bounding box
@@ -161,20 +163,20 @@ class UltimateSecurityCam:
 
 			
 			#cv2.imshow("contours", frame)
-			videoWriter.write(frame)
+			self.videoWriter.write(frame)
 			#cv2.imshow("dif", diff)
 			#cv2.imwrite('didff.jpg', diff)
 
-			self.stream_audio(frames)
+			self.stream_audio(self.frames)
 
 			keypress = cv2.waitKey(25)
 			if keypress:
 				if keypress &0xff == ord('q'):
-					self.save_audio(frames)
+					self.save_audio(self.frames)
 					break
 				elif keypress &0xff == ord('r'):			
 					#reset the camera
-					background = None
+					self.background = None
 
 		cv2.destroyAllWindows()
 		camera.release()
@@ -184,7 +186,7 @@ class UltimateSecurityCam:
 
 		data={"Date and Time":time.asctime(time.localtime(time.time())),
 			 "Camera FPS":fps,
-			 "Threshold":THRESHOLD,
+			 "Threshold":self.THRESHOLD,
 			 "Max Objects recorded":maxcnts,
 			 "Video File":videofile,
 			 "Path":dir_path,
@@ -192,14 +194,14 @@ class UltimateSecurityCam:
 		return data
 
 	def stream_audio(self,frames):
-		data = stream.read(CHUNK)
+		data = self.stream.read(CHUNK)
 		frames.append(data)
 
 	def save_audio(self,frames):
 		print ("finished recording") 
 		# stop Recording
-		stream.stop_stream()
-		stream.close()
+		self.stream.stop_stream()
+		self.stream.close()
 		audio.terminate()
 
 		waveFile = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
