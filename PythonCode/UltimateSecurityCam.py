@@ -232,9 +232,3 @@ class UltimateSecurityCam:
 			print("Invalid input!")
 
 
-#Sequence of main program execution
-start = UltimateSecurityCam()
-start.initial_window()
-data = start.usc()
-start.config(data)
-print("Program succesfully terminated!")
