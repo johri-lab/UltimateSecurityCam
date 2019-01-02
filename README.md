@@ -43,6 +43,9 @@
 We take a snapshot of the room , lets call this `base.jpg`. Now , the code continuously scan the current frame and subtract it from `base.jpg`.
 If the difference is more than a threshold , we'll consider a breach happening.
 
+### Features
+- Detects any kind of unwanted movements or disturbances in the surroundings.
+- Capable of differentiaing day and night or darkness in the surroundings.
 
 ---
 ## Step by step guide
@@ -53,6 +56,8 @@ If the difference is more than a threshold , we'll consider a breach happening.
 - Sequence of code:
 	- The code first initializes a three seconds waiting camera window.
 	- The main code runs to detect movements and record the complete video footage.
+	- The code is also capable of detecting darkness in the surroundings, by calculating the average brightness by overall pixels of a frame.
+	  It indicates the user whenever it finds surroundings getting dark.
 	- All the configurations of the video clip are recorded (like Date and Time, camera fps, maximum object movement recorded at a time, duration, etc.)
 	- The video clip saved as `basic_motion_detection.avi`.
 	- The configuration data like camera fps, duration of running, maximum object recorded, video file location is saved in `config.txt` for future reference.
@@ -70,13 +75,9 @@ To install the required packages use the following command in command prompt[win
 ````
 Packages can also be installed using pip-install [Tutorial](https://www.youtube.com/watch?v=237dNNQhD3Q).
 
-
-<<<<<<< HEAD
-=======
+---
 ## Running instructions :
----
----
->>>>>>> 10589444d8561272b0bc7a638c1051145c2247a7
+
 ## Working on the code:
 - Windows: Open up `UltimateSecurityCam.py` in your preferred python IDE [windows.py](PythonCode/Windows.py)
 - Linux: Open the terminal in the `PythonCode` directory, copy the code `python3 UltimateSecurityCam.py` and run it.
@@ -100,7 +101,7 @@ Command (with `PythonCode` as the working directory):
 
 - Open up `UltimateSecurityCam.py` in your preferred python IDE [UltimateSecurityCam.py](PythonCode/UltimateSecurityCam.py)
 - Open up `UltimateSecurityCam.py` in your preferred python IDE [UltimateSecurityCam.py](PythonCode/UltimateSecurityCam.py) or run on command prompt using the command (in `PythonCode` directory)
-	run the command `python3 UltimateSecurityCam.py`.
+  run the command `python3 UltimateSecurityCam.py`.
 - Run using python 3.6 (recommended).
 - The program takes 3-second waiting time, after that it starts detecting motion , making an alert sound.
 
