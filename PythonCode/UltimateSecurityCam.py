@@ -85,15 +85,16 @@ class UltimateSecurityCam:
 	def usc(self):
 		#main window opens and opject movement detection starts
 		maxcnts = 0		
+		dark = 0
 		#global background
 		start = time.time()	
 		
 		while (True):
 			
-			print ("recording...")
+			if dark: print ("recording...")
+			if dark: self.stream_audio(self.frames)
 						
 			ret, frame = camera.read()
-			self.stream_audio(self.frames)
 
 			# The first frame as the background
 			if self.background is None:
@@ -104,7 +105,7 @@ class UltimateSecurityCam:
 			gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 			gray_frame = cv2.GaussianBlur(gray_frame, (21,21), 0)
 
-			self.stream_audio(self.frames)
+			if dark: self.stream_audio(self.frames)
 							
 			# Compare the difference between each frame of image and the background
 			#print(background.shape, gray_frame.shape)
@@ -122,7 +123,7 @@ class UltimateSecurityCam:
 			#b,g,r = cv2.split(frame)
 			#pixels = frame.shape[0]*frame.shape[1]
 			#print(sum(sum(b+g+r))/(3*pixels))
-			self.stream_audio(self.frames)
+			if dark: self.stream_audio(self.frames)
 			
 			#finds the level of darkness value ranging from 0 to 255
 			darkness_level = np.mean(gray_frame)
@@ -130,7 +131,7 @@ class UltimateSecurityCam:
 			#Level of darkness selected
 			if darkness_level < 50:
 				detection_text = detection_text + str('(Dark)')
-				
+				dark = 1
 				
 			detection_text_colour = (0,255,0) 	#set as green
 			if len(cnts) > 0:
@@ -138,7 +139,7 @@ class UltimateSecurityCam:
 				detection_text_colour = (0,0,255)   #set to red
 				self.cameraSound.play()
 
-			self.stream_audio(self.frames)
+			if dark: self.stream_audio(self.frames)
 			
 			for c in cnts:
 				if cv2.contourArea(c) < (self.background.shape[0]*self.background.shape[1])/204:
@@ -167,7 +168,7 @@ class UltimateSecurityCam:
 			#cv2.imshow("dif", diff)
 			#cv2.imwrite('didff.jpg', diff)
 
-			self.stream_audio(self.frames)
+			if dark: self.stream_audio(self.frames)
 
 			keypress = cv2.waitKey(25)
 			if keypress:
