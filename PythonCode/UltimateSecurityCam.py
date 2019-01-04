@@ -48,7 +48,6 @@ class UltimateSecurityCam:
 				frames_per_buffer=CHUNK)
 		self.frames = []
 
-
 		#initial values set
 		self.THRESHOLD = 40
 
@@ -88,9 +87,9 @@ class UltimateSecurityCam:
 		dark = 0
 		#global background
 		start = time.time()	
-		
+		frame_count = 0
 		while (True):
-			
+			frame_count += 1
 			if dark: os.system('clear'); print ("recording...")
 			if dark: self.stream_audio(self.frames)
 						
@@ -188,10 +187,11 @@ class UltimateSecurityCam:
 		data={"Date and Time":time.asctime(time.localtime(time.time())),
 			 "Camera FPS":fps,
 			 "Threshold":self.THRESHOLD,
+			 "Frame Counts": frame_count,
 			 "Max Objects recorded":maxcnts,
 			 "Video File":videofile,
 			 "Path":dir_path,
-			 "Duration": '%0.2f' %(duration) + ' seconds'}
+			 "Duration": '%0.4f' %(duration)} #+ ' seconds'}		
 		return data
 
 	def stream_audio(self,frames):
@@ -218,7 +218,7 @@ class UltimateSecurityCam:
 		#confirm = input("Do you wish to save the current configs? [Y/N]: ")
 		#if run with python2 use raw_input
 
-		configfile = "config.txt"
+		configfile = "config.json"
 
 		print("\nUpdating config file...")
 		with open(configfile,'w') as jfile:
