@@ -29,26 +29,36 @@ class Window:
 
 
 		#Run button
-		self.runButton = Button(master, text="Run", command=self.usc, activebackground="black", activeforeground ="red", padx=30, bg="orange", relief=GROOVE)
-		self.runButton.flash()
+		self.runButton = Button(master, text="Run", command=self.usc, activebackground="black", activeforeground ="red", 
+								 padx=30, bg="orange", relief=GROOVE)
+		self.runButton.focus_set()
 		self.runButton.pack()
+
 		
 		#Exit Button
-		self.exitButton = Button(master, text="Quit", command=self.client_exit, activebackground="black", activeforeground ="red", padx=29, bg="orange", relief=GROOVE)
+		self.exitButton = Button(master, text="Quit", command=self.client_exit, activebackground="black", 
+								 activeforeground ="red", padx=29, bg="orange", relief=GROOVE)
 		self.exitButton.pack()
 
 	def usc(self):
 		global root
-		root.destroy()
+		#root.destroy()
+		#self.runButton.flash()
+		
 		start = UltimateSecurityCam()
 		start.initial_window()
 		data = start.usc()
-		start.config(data)
-		print("Program succesfully terminated!")
+		#self.master.focus_set()
+		saveconfig = tkinter.messagebox.askyesno("save configuration", "Do you wish to save the current configs?", icon = tkinter.messagebox.QUESTION)
+		if saveconfig:
+			start.config(data)
+		self.exitButton.focus_set()
+		
 	
 	def client_exit(self):
-		answeryes = tkinter.messagebox.askyesno("Question", "Do you really wish to exit?")
+		answeryes = tkinter.messagebox.askyesno("Exit", "Do you really wish to exit?", icon = tkinter.messagebox.WARNING)
 		if answeryes: 
+			print("Program succesfully terminated!")
 			exit()
 
 	'''
