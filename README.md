@@ -46,6 +46,8 @@ If the difference is more than a threshold , we'll consider a breach happening.
 ### Features
 - Detects any kind of unwanted movements or disturbances in the surroundings.
 - Capable of differentiaing day and night or darkness in the surroundings.
+- The program is integrated with automatic recording feature whenever it detects darkness or lights being off. So that when the camera can not 
+  identify intruders in dark the sound can be recorded, making the camera foolproof.
 
 ---
 ## Step by step guide
@@ -54,14 +56,17 @@ If the difference is more than a threshold , we'll consider a breach happening.
 - Installation of all the required depedencies is completed first. [Setup](#setup-instructions)
 - The code is made to run via terminal/IDE. [Running](#running)
 - Sequence of code:
+	- The Graphical user interfaces initializes. When user presses `Run` button the main program executes in a new window. 
 	- The code first initializes a three seconds waiting camera window.
 	- The main code runs to detect movements and record the complete video footage.
 	- The code is also capable of detecting darkness in the surroundings, by calculating the average brightness by overall pixels of a frame.
 	  It indicates the user whenever it finds surroundings getting dark.
+	- Whenever the program detects darkness it initializes the microphone to record the audio in the region.
 	- All the configurations of the video clip are recorded (like Date and Time, camera fps, maximum object movement recorded at a time, duration, etc.)
-	- The video clip saved as `basic_motion_detection.avi`.
+	- The video clip saved as `basic_motion_detection.avi` and the audio as `audio.wav`.
+	- The GUI makes confirmation for saving the config file.
 	- The configuration data like camera fps, duration of running, maximum object recorded, video file location is saved in `config.txt` for future reference.
-	- Finally the code terminates.
+	- Finally the code terminates with the termination of the main GUI window.
 	
 
 ---

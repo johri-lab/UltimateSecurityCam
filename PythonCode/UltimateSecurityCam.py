@@ -17,7 +17,7 @@ CHANNELS = 2
 RATE = 44100
 CHUNK = 1024
 #RECORD_SECONDS = 5
-WAVE_OUTPUT_FILENAME = "file.wav"
+WAVE_OUTPUT_FILENAME = "audio.wav"
 
 audio = pyaudio.PyAudio()
 
@@ -47,7 +47,6 @@ class UltimateSecurityCam:
 				rate=RATE, input=True,
 				frames_per_buffer=CHUNK)
 		self.frames = []
-
 
 		#initial values set
 		self.THRESHOLD = 40
@@ -88,10 +87,10 @@ class UltimateSecurityCam:
 		dark = 0
 		#global background
 		start = time.time()	
-		
+		frame_count = 0
 		while (True):
-			
-			if dark: print ("recording...")
+			frame_count += 1
+			if dark: os.system('clear'); print ("recording...")
 			if dark: self.stream_audio(self.frames)
 						
 			ret, frame = camera.read()
@@ -173,7 +172,7 @@ class UltimateSecurityCam:
 			keypress = cv2.waitKey(25)
 			if keypress:
 				if keypress &0xff == ord('q'):
-					self.save_audio(self.frames)
+					self.terminate_audio(self.frames)
 					break
 				elif keypress &0xff == ord('r'):			
 					#reset the camera
@@ -188,18 +187,19 @@ class UltimateSecurityCam:
 		data={"Date and Time":time.asctime(time.localtime(time.time())),
 			 "Camera FPS":fps,
 			 "Threshold":self.THRESHOLD,
+			 "Frame Counts": frame_count,
 			 "Max Objects recorded":maxcnts,
 			 "Video File":videofile,
 			 "Path":dir_path,
-			 "Duration": '%0.2f' %(duration) + ' seconds'}
+			 "Duration": '%0.4f' %(duration)} #+ ' seconds'}		
 		return data
 
 	def stream_audio(self,frames):
 		data = self.stream.read(CHUNK)
 		frames.append(data)
 
-	def save_audio(self,frames):
-		print ("finished recording") 
+	def terminate_audio(self, frames):
+		print ("finished recording!") 
 		# stop Recording
 		self.stream.stop_stream()
 		self.stream.close()
@@ -215,21 +215,13 @@ class UltimateSecurityCam:
 	def config(self,data):
 		#saves all necessary configurations
 		
-		confirm = input("Do you wish to save the current configs? [Y/N]: ")
+		#confirm = input("Do you wish to save the current configs? [Y/N]: ")
 		#if run with python2 use raw_input
 
-		configfile = "config.txt"
+		configfile = "config.json"
 
-		if confirm.startswith('y' or 'Y'):
-			print("\nUpdating config file...")
-			with open(configfile,'w') as jfile:
-				json.dump(data, jfile, indent = 4)
-			print("Data updated to " + configfile + " successfully!")
-
-		elif confirm.startswith('n' or 'N'):
-			pass
-
-		else:
-			print("Invalid input!")
-
+		print("\nUpdating config file...")
+		with open(configfile,'w') as jfile:
+			json.dump(data, jfile, indent = 4)
+		print("Data updated to " + configfile + " successfully!")
 
