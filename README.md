@@ -123,5 +123,3 @@ Many improvements and developments are in the pipeline! To know more, contact on
 
 ## Contribute
 Found a bug, please [create an issue](https://github.com/njackwinterofcode/UltimateSecurityCam/issues)
-
-<p align="center"> Made with ❤ by <a href="https://github.com/NIteshx2">Nitesh Chaudhry</a></p>
