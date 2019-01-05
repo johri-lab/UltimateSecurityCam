@@ -4,3 +4,4 @@ opencv
 opencv-contrib-python
 pyaudio
 wave
+tkinter
