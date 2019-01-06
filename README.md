@@ -48,6 +48,7 @@ If the difference is more than a threshold , we'll consider a breach happening.
 - Capable of differentiaing day and night or darkness in the surroundings.
 - The program is integrated with automatic recording feature whenever it detects darkness or lights being off. So that when the camera can not 
   identify intruders in dark the sound can be recorded, making the camera foolproof.
+- The program automatically clicks snapshot and saves the image as 'image.jpg' which show maximum movement in it's complete cycle.
 
 ---
 ## Step by step guide
@@ -62,6 +63,7 @@ If the difference is more than a threshold , we'll consider a breach happening.
 	- The code is also capable of detecting darkness in the surroundings, by calculating the average brightness by overall pixels of a frame.
 	  It indicates the user whenever it finds surroundings getting dark.
 	- Whenever the program detects darkness it initializes the microphone to record the audio in the region.
+	- The code takes snapshot of the frame with maximum movement count as`image.jpg` during it's complete execution cycle.
 	- All the configurations of the video clip are recorded (like Date and Time, camera fps, maximum object movement recorded at a time, duration, etc.)
 	- The video clip saved as `basic_motion_detection.avi` and the audio as `audio.wav`.
 	- The GUI makes confirmation for saving the config file.
