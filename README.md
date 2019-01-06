@@ -88,9 +88,12 @@ pip3 install https://github.com/OlafenwaMoses/ImageAI/releases/download/2.0.2/im
 ````
 
 + Download the RetinaNet model file that will be used for object detection via this [link](https://github.com/OlafenwaMoses/ImageAI/releases/download/1.0/resnet50_coco_best_v2.0.1.h5).
-**Note: Save the file in `PythonCode` directory.**
 
 If there be any issue please check out [imageAI](https://github.com/johri002/ImageAI).
+
++ For object detection over video install files from the [link](https://imageai.readthedocs.io/en/latest/video/index.html) 
+
+**Note: Save the downloaded files in `PythonCode` directory.**
 
 ---
 ## Running instructions :
