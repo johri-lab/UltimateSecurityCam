@@ -1,7 +1,13 @@
 numpy
 pygame
-opencv
+opencv-python
 opencv-contrib-python
 pyaudio
 wave
 tkinter
+tensorflow
+scipy
+pillow
+matplotlib
+h5py
+keras
