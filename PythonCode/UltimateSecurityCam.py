@@ -8,7 +8,7 @@ import time, sys, os
 import pyaudio
 import wave
 import threading
-
+from imageai.Detection import ObjectDetection
  
 #if you get error while importing the google how to install <Package Name> in python 3.6
 
@@ -151,7 +151,7 @@ class UltimateSecurityCam:
 			#maximum object detected
 			if len(cnts)>maxcnts: 
 				maxcnts=len(cnts)
-				cv2.imwrite('image.jpg',frameOriginal)
+				cv2.imwrite('MaxMotionimage.jpg',frameOriginal)
 			#print(detection_text)
 			cv2.putText(frame,detection_text,(60,30),cv2.FONT_HERSHEY_DUPLEX,1,detection_text_colour,2)
 
@@ -225,4 +225,16 @@ class UltimateSecurityCam:
 		with open(configfile,'w') as jfile:
 			json.dump(data, jfile, indent = 4)
 		print("Data updated to " + configfile + " successfully!")
-
+		
+	def ObjectDetection(self):
+		current_path = os.getcwd()
+		objDetector = ObjectDetection()
+		os.system('clear')
+		print("Processing image...")
+		objDetector.setModelTypeAsRetinaNet()
+		objDetector.setModelPath( os.path.join(current_path , "resnet50_coco_best_v2.0.1.h5"))
+		objDetector.loadModel()
+		detections = objDetector.detectObjectsFromImage(input_image=os.path.join(current_path , "MaxMotionimage.jpg"), output_image_path=os.path.join(current_path , "MaxMotionimageDetected.jpg"))
+		os.system('clear')
+		print("Image processed (saved as MaxMotionimageDetected.jpg)!")
+		
