@@ -86,9 +86,9 @@ Packages can also be installed using pip-install [Tutorial](https://www.youtube.
 ## Running instructions :
 
 ## Working on the code:
-- Windows: Open up `UltimateSecurityCam.py` in your preferred python IDE [windows.py](PythonCode/Windows.py)
-- Linux: Open the terminal in the `PythonCode` directory, copy the code `python3 UltimateSecurityCam.py` and run it.
-- More formally , fork the code , and clone it your machine . I recommend that you use the GitH desktop app.
+- Windows: Open up `gui.py` in your preferred python IDE 
+- Linux: Open the terminal in the `PythonCode` directory, copy the code `python3 gui.py` and run it.
+- More formally , fork the code , and clone it your machine . I recommend that you use the GitHub desktop app.
   - If you need a python IDE , I recommend using pycharm. [Tutorial to install !](https://www.youtube.com/watch?v=QzcaEELafkE).
   - If you get an error , make sure all the **import statements are working** (required packages are [installed](#setup-instructions)) 
   
@@ -99,16 +99,16 @@ Packages can also be installed using pip-install [Tutorial](https://www.youtube.
 
 ### UltimateSecurityCam running on Linux
 Command (with `PythonCode` as the working directory):
-`python3 UltimateSecurityCam.py`
+`python3 gui.py`
 
 ![ultimatesecuritycam](https://user-images.githubusercontent.com/30645315/49302849-31d16380-f4ee-11e8-9bfa-4e99866fa3bc.gif)
 
 
 ### Running instructions:
 
-- Open up `UltimateSecurityCam.py` in your preferred python IDE [UltimateSecurityCam.py](PythonCode/UltimateSecurityCam.py)
-- Open up `UltimateSecurityCam.py` in your preferred python IDE [UltimateSecurityCam.py](PythonCode/UltimateSecurityCam.py) or run on command prompt using the command (in `PythonCode` directory)
-  run the command `python3 UltimateSecurityCam.py`.
+- Open up `gui.py` in your preferred python IDE [UltimateSecurityCam.py](PythonCode/UltimateSecurityCam.py)
+- Open up `gui.py` in your preferred python IDE [UltimateSecurityCam.py](PythonCode/UltimateSecurityCam.py) or run on command prompt using the command (in `PythonCode` directory)
+  run the command `python3 gui.py`.
 - Run using python 3.6 (recommended).
 - The program takes 3-second waiting time, after that it starts detecting motion , making an alert sound.
 
