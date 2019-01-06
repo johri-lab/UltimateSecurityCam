@@ -12,7 +12,7 @@ class Window:
 	
 		master.title("Ultimate Security Camera")
 		#master.configure(background='black')
-		master.geometry("300x90")
+		master.geometry("300x110")
 		
 		#Menu bar
 		menu = Menu(master)
@@ -34,7 +34,11 @@ class Window:
 		self.runButton.focus_set()
 		self.runButton.pack()
 
-			
+		#Object Detection
+		self.detectionButton = Button(master, text="Object Detection", command=self.detection, activebackground="black", 
+									  activeforeground="red", padx=34, bg="orange", relief=GROOVE) 
+		self.detectionButton.pack()
+		
 		#Exit Button
 		self.exitButton = Button(master, text="Quit", command=self.client_exit, activebackground="black", 
 								 activeforeground ="red", padx=35, bg="orange", relief=GROOVE)
@@ -53,8 +57,11 @@ class Window:
 		if saveconfig:
 			start.config(data)
 		self.exitButton.focus_set()
-		start.ObjectDetection()
-		
+	
+	def detection(self):
+		#global root
+		detectstart = UltimateSecurityCam()
+		detectstart.ObjectDetection()
 	
 	def client_exit(self):
 		answeryes = tkinter.messagebox.askyesno("Exit", "Do you really wish to exit?", icon = tkinter.messagebox.WARNING)
