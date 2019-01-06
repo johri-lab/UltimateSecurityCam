@@ -94,7 +94,7 @@ class UltimateSecurityCam:
 			if dark: self.stream_audio(self.frames)
 						
 			ret, frame = camera.read()
-
+			frameOriginal = frame.copy()
 			# The first frame as the background
 			if self.background is None:
 				self.background = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -149,8 +149,9 @@ class UltimateSecurityCam:
 				cv2.rectangle(frame, (x,y), (x+w, y+h), (0,255,0), 2)
 
 			#maximum object detected
-			if len(cnts)>maxcnts: maxcnts=len(cnts)
-
+			if len(cnts)>maxcnts: 
+				maxcnts=len(cnts)
+				cv2.imwrite('image.jpg',frameOriginal)
 			#print(detection_text)
 			cv2.putText(frame,detection_text,(60,30),cv2.FONT_HERSHEY_DUPLEX,1,detection_text_colour,2)
 
