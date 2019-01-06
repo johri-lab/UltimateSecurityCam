@@ -76,11 +76,21 @@ If the difference is more than a threshold , we'll consider a breach happening.
 [(Back to top👆🏻)](#table-of-content)
 
 ## Initialisation :
-To install the required packages use the following command in command prompt[windows] OR terminal[Unix]
++ To install the required packages use the following command in command prompt[windows] OR terminal[Unix]
 ````sh
  sudo python3 setup.py install
 ````
 Packages can also be installed using pip-install [Tutorial](https://www.youtube.com/watch?v=237dNNQhD3Q).
+
++ Install imageAI
+````sh
+pip3 install https://github.com/OlafenwaMoses/ImageAI/releases/download/2.0.2/imageai-2.0.2-py3-none-any.whl
+````
+
++ Download the RetinaNet model file that will be used for object detection via this [link](https://github.com/OlafenwaMoses/ImageAI/releases/download/1.0/resnet50_coco_best_v2.0.1.h5).
+**Note: Save the file in `PythonCode` directory.**
+
+If there be any issue please check out [imageAI](https://github.com/johri002/ImageAI).
 
 ---
 ## Running instructions :
