@@ -106,8 +106,8 @@ Command (with `PythonCode` as the working directory):
 
 ### Running instructions:
 
-- Open up `gui.py` in your preferred python IDE [UltimateSecurityCam.py](PythonCode/UltimateSecurityCam.py)
-- Open up `gui.py` in your preferred python IDE [UltimateSecurityCam.py](PythonCode/UltimateSecurityCam.py) or run on command prompt using the command (in `PythonCode` directory)
+- Open up `gui.py` in your preferred python IDE [UltimateSecurityCam.py](PythonCode/gui.py)
+- Open up `gui.py` in your preferred python IDE [UltimateSecurityCam.py](PythonCode/gui.py) or run on command prompt using the command (in `PythonCode` directory)
   run the command `python3 gui.py`.
 - Run using python 3.6 (recommended).
 - The program takes 3-second waiting time, after that it starts detecting motion , making an alert sound.
