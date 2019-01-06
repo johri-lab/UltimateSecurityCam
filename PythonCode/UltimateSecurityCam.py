@@ -229,12 +229,12 @@ class UltimateSecurityCam:
 	def ObjectDetection(self):
 		current_path = os.getcwd()
 		objDetector = ObjectDetection()
-		os.system('clear')
+		#os.system('clear')
 		print("Processing image...")
 		objDetector.setModelTypeAsRetinaNet()
 		objDetector.setModelPath( os.path.join(current_path , "resnet50_coco_best_v2.0.1.h5"))
 		objDetector.loadModel()
 		detections = objDetector.detectObjectsFromImage(input_image=os.path.join(current_path , "MaxMotionimage.jpg"), output_image_path=os.path.join(current_path , "MaxMotionimageDetected.jpg"))
-		os.system('clear')
+		#os.system('clear')
 		print("Image processed (saved as MaxMotionimageDetected.jpg)!")
-		
+
