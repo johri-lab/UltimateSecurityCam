@@ -30,14 +30,14 @@ class Window:
 
 		#Run button
 		self.runButton = Button(master, text="Run", command=self.usc, activebackground="black", activeforeground ="red", 
-								 padx=30, bg="orange", relief=GROOVE)
+								 padx=36, bg="orange", relief=GROOVE)
 		self.runButton.focus_set()
 		self.runButton.pack()
 
-		
+			
 		#Exit Button
 		self.exitButton = Button(master, text="Quit", command=self.client_exit, activebackground="black", 
-								 activeforeground ="red", padx=29, bg="orange", relief=GROOVE)
+								 activeforeground ="red", padx=35, bg="orange", relief=GROOVE)
 		self.exitButton.pack()
 
 	def usc(self):
@@ -53,6 +53,7 @@ class Window:
 		if saveconfig:
 			start.config(data)
 		self.exitButton.focus_set()
+		start.ObjectDetection()
 		
 	
 	def client_exit(self):
