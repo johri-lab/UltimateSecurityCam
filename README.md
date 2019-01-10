@@ -95,6 +95,7 @@ If there be any issue please check out [imageAI](https://github.com/johri002/Ima
 
 **Note: Save the downloaded files in `PythonCode` directory.**
 
+
 ---
 ## Running instructions :
 
