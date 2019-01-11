@@ -12,7 +12,7 @@ class Window:
 	
 		master.title("Ultimate Security Camera")
 		#master.configure(background='black')
-		master.geometry("300x90")
+		master.geometry("300x110")
 		
 		#Menu bar
 		menu = Menu(master)
@@ -34,7 +34,6 @@ class Window:
 		self.runButton.focus_set()
 		self.runButton.pack()
 
-			
 		#Exit Button
 		self.exitButton = Button(master, text="Quit", command=self.client_exit, activebackground="black", 
 								 activeforeground ="red", padx=35, bg="orange", relief=GROOVE)

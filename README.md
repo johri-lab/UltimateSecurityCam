@@ -76,19 +76,33 @@ If the difference is more than a threshold , we'll consider a breach happening.
 [(Back to top👆🏻)](#table-of-content)
 
 ## Initialisation :
-To install the required packages use the following command in command prompt[windows] OR terminal[Unix]
++ To install the required packages use the following command in command prompt[windows] OR terminal[Unix]
 ````sh
  sudo python3 setup.py install
 ````
 Packages can also be installed using pip-install [Tutorial](https://www.youtube.com/watch?v=237dNNQhD3Q).
 
++ Install imageAI
+````sh
+pip3 install https://github.com/OlafenwaMoses/ImageAI/releases/download/2.0.2/imageai-2.0.2-py3-none-any.whl
+````
+
++ Download the RetinaNet model file that will be used for object detection via this [link](https://github.com/OlafenwaMoses/ImageAI/releases/download/1.0/resnet50_coco_best_v2.0.1.h5).
+
+If there be any issue please check out [imageAI](https://github.com/johri002/ImageAI).
+
++ For object detection over video install files from the [link](https://imageai.readthedocs.io/en/latest/video/index.html) 
+
+**Note: Save the downloaded files in `PythonCode` directory.**
+
+
 ---
 ## Running instructions :
 
 ## Working on the code:
-- Windows: Open up `UltimateSecurityCam.py` in your preferred python IDE [windows.py](PythonCode/Windows.py)
-- Linux: Open the terminal in the `PythonCode` directory, copy the code `python3 UltimateSecurityCam.py` and run it.
-- More formally , fork the code , and clone it your machine . I recommend that you use the GitH desktop app.
+- Windows: Open up `gui.py` in your preferred python IDE 
+- Linux: Open the terminal in the `PythonCode` directory, copy the code `python3 gui.py` and run it.
+- More formally , fork the code , and clone it your machine . I recommend that you use the GitHub desktop app.
   - If you need a python IDE , I recommend using pycharm. [Tutorial to install !](https://www.youtube.com/watch?v=QzcaEELafkE).
   - If you get an error , make sure all the **import statements are working** (required packages are [installed](#setup-instructions)) 
   
@@ -99,16 +113,16 @@ Packages can also be installed using pip-install [Tutorial](https://www.youtube.
 
 ### UltimateSecurityCam running on Linux
 Command (with `PythonCode` as the working directory):
-`python3 UltimateSecurityCam.py`
+`python3 gui.py`
 
 ![ultimatesecuritycam](https://user-images.githubusercontent.com/30645315/49302849-31d16380-f4ee-11e8-9bfa-4e99866fa3bc.gif)
 
 
 ### Running instructions:
 
-- Open up `UltimateSecurityCam.py` in your preferred python IDE [UltimateSecurityCam.py](PythonCode/UltimateSecurityCam.py)
-- Open up `UltimateSecurityCam.py` in your preferred python IDE [UltimateSecurityCam.py](PythonCode/UltimateSecurityCam.py) or run on command prompt using the command (in `PythonCode` directory)
-  run the command `python3 UltimateSecurityCam.py`.
+- Open up `gui.py` in your preferred python IDE [UltimateSecurityCam.py](PythonCode/gui.py)
+- Open up `gui.py` in your preferred python IDE [UltimateSecurityCam.py](PythonCode/gui.py) or run on command prompt using the command (in `PythonCode` directory)
+  run the command `python3 gui.py`.
 - Run using python 3.6 (recommended).
 - The program takes 3-second waiting time, after that it starts detecting motion , making an alert sound.
 
