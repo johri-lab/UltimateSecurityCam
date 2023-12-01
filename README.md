@@ -132,4 +132,4 @@ Nitesh Chaudhary
 ## Contribute
 Found a bug, please [create an issue](https://github.com/njackwinterofcode/UltimateSecurityCam/issues)
 
-<p align="center"> Made with ❤ by <a href="https://github.com/NIteshx2">Shikhar Johri and Nitesh Chaudhry</a></p>
+<p align="center"> Made with ❤ by <a href="https://github.com/johri-lab">Shikhar Johri</a>a and <a href="https://github.com/NIteshx2">Nitesh Chaudhry</a></p>
